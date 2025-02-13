@@ -699,4 +699,3 @@ spec:
       image: icr.io/cpopen/cpfs/zen-rsi-adm-controller@sha256:45ca5370b726e31c55f9d7d249374189cb48dc05ab89d675c35225d53b90e7c9
     - name: ZEN_OPENRESTY_BASE
       image: icr.io/cpopen/cpfs/zen-openresty-base@sha256:c4ff5dae4560e5a943c7218df3a5aa9ca1a9ee2d1f7dfac73db05892725c34a9
-  replaces: ibm-zen-operator.v6.1.1
