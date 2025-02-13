@@ -8,7 +8,7 @@ metadata:
     operatorframework.io/arch.s390x: supported
     operatorframework.io/os.linux: supported
   annotations:
-    alm-examples: '[ { "apiVersion":"operator.ibm.com/v1alpha1", "kind":"OperandBindInfo", "metadata":{ "name":"ibm-zen-bindinfo" }, "spec":{ "operand":"ibm-platformui-operator", "registry":"common-service", "description":"Binding information that should be accessible to zen adopters", "bindings":{ "protected-ca-cert":{ "secret":"cs-ca-certificate-secret" } } } } ]'
+    alm-examples: '[ { "apiVersion":"zen.cpd.ibm.com/v1", "kind":"ZenService", "metadata":{ "name":"lite-cr" }, "spec":{ "fileStorageClass":"managed-nfs-storage"} } ]'
     capabilities: Seamless Upgrades
     olm.skipRange: '>=1.0.3 <6.1.1'
     operators.operatorframework.io/builder: operator-sdk-v1.6.2
