@@ -13,7 +13,7 @@ metadata:
     olm.skipRange: '>=1.0.3 <6.1.1'
     operators.operatorframework.io/builder: operator-sdk-v1.6.2
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
-    containerImage: icr.io/cpopen/ibm-zen-operator:6.1.1-1271-yaswanth-amd64
+    containerImage: icr.io/cpopen/icr.io/cpopen/ibm-zen-operator@'sha256:4022faa6bbce9b076907e406616896a332c9ab6fbdc34a2c2a8b73eefb1d248d'
     features.operators.openshift.io/disconnected: "true"
     features.operators.openshift.io/tls-profiles: "false"
     features.operators.openshift.io/token-auth-aws: "false"
@@ -21,7 +21,7 @@ metadata:
     features.operators.openshift.io/proxy-aware: "false"
     features.operators.openshift.io/token-auth-azure: "false"
     features.operators.openshift.io/token-auth-gcp: "false"
-  name: ibm-zen-operator.v6.1.1-1271-yaswanth-amd64
+  name: ibm-zen-operator.v6.1.1-1274-yaswanth-amd64
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -261,7 +261,7 @@ spec:
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
-                    image: icr.io/cpopen/ibm-zen-operator@sha256:140328f74b8bb3ba060e7c2c1eed7a6b4326e9fa876f11189af46f0b5abde865
+                    image: icr.io/cpopen/ibm-zen-operator@sha256:4022faa6bbce9b076907e406616896a332c9ab6fbdc34a2c2a8b73eefb1d248d
                     name: setup-resources
                     securityContext:
                       privileged: false
@@ -304,7 +304,7 @@ spec:
                         value: ibm-zen-operator
                       - name: ENTITLED_REGISTRY_NAME
                         value: hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com
-                    image: icr.io/cpopen/ibm-zen-operator@sha256:140328f74b8bb3ba060e7c2c1eed7a6b4326e9fa876f11189af46f0b5abde865
+                    image: icr.io/cpopen/ibm-zen-operator@sha256:4022faa6bbce9b076907e406616896a332c9ab6fbdc34a2c2a8b73eefb1d248d
                     name: ibm-zen-operator
                     resources:
                       limits:
@@ -669,10 +669,10 @@ spec:
   provider:
     name: IBM
     url: https://www.ibm.com/in-en/products/cloud-pak-for-data
-  version: 6.1.1-1271-yaswanth-amd64
+  version: 6.1.1-1274-yaswanth-amd64
   relatedImages:
     - name: ZEN_OPERATOR_IMAGE
-      image: icr.io/cpopen/ibm-zen-operator@sha256:140328f74b8bb3ba060e7c2c1eed7a6b4326e9fa876f11189af46f0b5abde865
+      image: icr.io/cpopen/ibm-zen-operator@sha256:4022faa6bbce9b076907e406616896a332c9ab6fbdc34a2c2a8b73eefb1d248d
     - name: ZEN_ICP4DATA_NGINX_REPO_IMAGE
       image: icr.io/cpopen/cpfs/icp4data-nginx-repo@sha256:1df782d0d923544767696d719bd0ac10802b8e06508a104af5e023a519f32dee
     - name: ZEN_SOPKE_NGINX_IMAGE
