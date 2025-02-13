@@ -3,7 +3,7 @@ kind: ClusterServiceVersion
 metadata:
   annotations:
     description: WS Pipelines CSV file
-    containerImage: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:210aec4f61c0c1ee577544393a021f62d2ccdeecbe2cad0ae72c5a8dc6126e25
+    containerImage: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:260b7813d179794ce456d24ed943007cc76ae08b8862228006a70d7a16b9c11c
     olm.skipRange: '>=1.0.0 <10.1.0'
     alm-examples: |-
       [
@@ -16,7 +16,7 @@ metadata:
               "app.kubernetes.io/name": "wspipelines",
               "app.kubernetes.io/instance": "wspipelines.wspipelines.cpd.ibm.com",
               "app.kubernetes.io/managed-by": "wspipelines-operator",
-              "wspipelinesBuildNumber": "1692"
+              "wspipelinesBuildNumber": "1695"
           }
           },
           "spec": {
@@ -249,7 +249,7 @@ spec:
                     - "1"
                     - "--reconcile-period"
                     - "0s"
-                  image: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:210aec4f61c0c1ee577544393a021f62d2ccdeecbe2cad0ae72c5a8dc6126e25
+                  image: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:260b7813d179794ce456d24ed943007cc76ae08b8862228006a70d7a16b9c11c
                   livenessProbe:
                     httpGet:
                       path: /healthz
@@ -674,11 +674,11 @@ spec:
     name: IBM
   relatedImages:
   - name: ibm-cpd-wspipelines-operator
-    image: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:210aec4f61c0c1ee577544393a021f62d2ccdeecbe2cad0ae72c5a8dc6126e25
+    image: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:260b7813d179794ce456d24ed943007cc76ae08b8862228006a70d7a16b9c11c
   - name: cpdctl
     image: cp.icr.io/cp/cpd/cpdctl@sha256:0bce2f8cf74ea170c8eb84acdca06cea45fe7c6277d0d6fcd24cdd8160223a96
   - name: opa
-    image: cp.icr.io/cp/cpd/opa@sha256:3b879fe29c7f840a930bb8fbce69fea6413c7c5400a03047cb274c53b6849ff8
+    image: cp.icr.io/cp/cpd/opa@sha256:1074866eb49e3887f0cb81a048ed5373b12b8ca299025715be96011bac0a1a57
   - name: run-bash-script
     image: cp.icr.io/cp/cpd/run-bash-script@sha256:8d922e2554809dfca8ed87f1bc60a0164d442f62bd00786c00a50ef98ea0d765
   - name: rbs-ext
@@ -700,7 +700,7 @@ spec:
   - name: ubi-minimal-cpd
     image: cp.icr.io/cp/cpd/ubi-minimal-cpd@sha256:9464d06bee61d0fd89ea442cd7ef245db32d9b75549b2a485511c180fd65edf5
   - name: wsp-ts
-    image: cp.icr.io/cp/cpd/wsp-ts@sha256:ccaa9901f34430649165341ae9494a29974f2c3a46507e0218aeca30560f9af4
+    image: cp.icr.io/cp/cpd/wsp-ts@sha256:257b1257eb2e91b74ace6ef11775b47545cf8843214d929d8cc904a8e48e3261
   - name: pipelines-python-runtime
     image: cp.icr.io/cp/cpd/pipelines-python-runtime@sha256:PIPELINES_PYTHON_RUNTIME_TAG_REPLACEME
   - name: tekton-runtime-controller
