@@ -23,7 +23,7 @@ metadata:
     capabilities: Seamless Upgrades
     cloudPakThemesVersion: styles4100.css
     containerImage: icr.io/cpopen/common-service-operator:latest
-    createdAt: "2025-02-13T22:58:21Z"
+    createdAt: "2025-02-14T20:37:49Z"
     description: The IBM Cloud Pak foundational services operator is used to deploy IBM foundational services.
     features.operators.openshift.io/disconnected: "true"
     features.operators.openshift.io/fips-compliant: "true"
@@ -387,7 +387,7 @@ spec:
                         value: "false"
                       - name: OPERATOR_NAME
                         value: ibm-common-service-operator
-                    image: docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-daily-docker-local/ibmcom/common-service-operator:4.11.0
+                    image: icr.io/cpopen/common-service-operator:4.11.0
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 10
@@ -678,5 +678,5 @@ spec:
       type: ValidatingAdmissionWebhook
       webhookPath: /validate-operator-ibm-com-v3-commonservice
   relatedImages:
-    - image: docker-na-public.artifactory.swg-devops.com/hyc-cloud-private-daily-docker-local/ibmcom/common-service-operator:4.11.0
+    - image: icr.io/cpopen/common-service-operator:4.11.0
       name: COMMON_SERVICE_OPERATOR_IMAGE
