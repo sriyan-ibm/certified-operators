@@ -1,0 +1,739 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    description: Common Core Services
+    containerImage: icr.io/cpopen/ibm-cpd-ccs-operator@sha256:d4b336150786b32a98e6a6f2af34eece3b315af9c3819d2bf2de07667e15037c
+    olm.skipRange: '>=7.0.0 <10.1.0'
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "ccs.cpd.ibm.com/v1beta1",
+          "kind": "CCS",
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/instance": "ccs-cr",
+              "app.kubernetes.io/managed-by": "ibm-cpd-ccs-operator",
+              "app.kubernetes.io/name": "ibm-cpd-ccs-operator"
+            },
+            "name": "ccs-cr"
+          },
+          "spec": {
+            "scaleConfig": "small",
+            "license": {
+              "accept": false
+            }
+          }
+        }
+      ]
+    capabilities: Seamless Upgrades
+    categories: "AI/Machine Learning, Application Runtime"
+    createdAt: "2025-02-11"
+    features.operators.openshift.io/disconnected: "true"
+    features.operators.openshift.io/fips-compliant: "false"
+    features.operators.openshift.io/proxy-aware: "true"
+    features.operators.openshift.io/tls-profiles: "false"
+    features.operators.openshift.io/token-auth-aws: "false"
+    features.operators.openshift.io/token-auth-azure: "false"
+    features.operators.openshift.io/token-auth-gcp: "false"
+    features.operators.openshift.io/cnf: "false"
+    features.operators.openshift.io/cni: "false"
+    features.operators.openshift.io/csi: "false"
+    operators.openshift.io/infrastructure-features: '["disconnected"]'
+    operators.openshift.io/valid-subscription: "[\"IBM watsonx.ai\"]"
+    nss.operator.ibm.com/managed-operators: ibm-cpd-ccs
+    operators.operatorframework.io/builder: operator-sdk-v1.28.0
+    operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
+    operators.operatorframework.io/internal-objects: |-
+      [
+        "runtimeassemblies.runtimes.ibm.com"
+      ]
+    support: IBM
+  labels:
+    operatorframework.io/arch.amd64: supported
+    operatorframework.io/arch.ppc64le: supported
+    operatorframework.io/arch.s390x: supported
+    operatorframework.io/os.linux: supported
+  name: ibm-cpd-ccs.v10.1.0
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: RuntimeAssembly
+      name: runtimeassemblies.runtimes.ibm.com
+      version: v1alpha1
+      description: 'Documentation Runtime Manager CRD. This product is not deployable standalone and it is part of the LICCR already accepted.  For additional details regarding install parameters check: http://ibm.biz/-readme. License By installing this product you accept the license terms https://ibm.biz/BdaaLC or https://ibm.biz/BdaaL9.'
+    - kind: CCS
+      name: ccs.ccs.cpd.ibm.com
+      version: v1beta1
+      description: 'Documentation This product is not deployable standalone and it is part of the LICCR already accepted.  For additional details regarding install parameters check: http://ibm.biz/-readme. License By installing this product you accept the license terms https://ibm.biz/BdaaLC or https://ibm.biz/BdaaL9.'
+      specDescriptors:
+      - displayName: Accept Operand License
+        description: The license has to be accepted to install.
+        path: license.accept
+        value:
+        - false
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:checkbox
+      - displayName: Storage Class
+        description: The storage class to use for install.
+        path: storageClass
+        x-descriptors:
+        - 'urn:alm:descriptor:io.kubernetes:StorageClass'
+      - displayName: Storage Vendor
+        description: The storage vendor to use for install.
+        path: storageVendor
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:select:ocs'
+        - 'urn:alm:descriptor:com.tectonic.ui:select:portworx'
+      - displayName: Scale Config
+        description: The scale of the install.
+        path: size
+        value:
+        - small
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:select:small'
+        - 'urn:alm:descriptor:com.tectonic.ui:select:medium'
+        - 'urn:alm:descriptor:com.tectonic.ui:select:large'
+      - displayName: Maintenance Mode
+        description: Set maintenance mode to true to quiesce and backup the services.
+        path: ignoreForMaintenance
+        value:
+        - false
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
+      - displayName: Configure Custom Resources
+        description: Configure custom resources for services.
+        path: customResources
+        value:
+        - false
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
+      - displayName: Storage Class
+      - displayName: CouchDB Resource Requirements Optional
+        description: The CouchDB resource requirements.
+        path: couchdb_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: CouchDB Search Resource Requirements Optional
+        description: The CouchDB Search resource requirements.
+        path: couchdb_search_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: ElasticSearch Resource Requirements Optional
+        description: The ElasticSearch resource requirements.
+        path: elasticsearch_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: Opensearch java opts Optional
+        description: The Opensearch java options.
+        path: opensearch_java_opts
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+      - displayName: Redis Resource Requirements Optional
+        description: The Redis resource requirements.
+        path: redis_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: Redis Sentinel Resource Requirements Optional
+        description: The Redis Sentinel resource requirements.
+        path: redis_sentinel_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: Redis HAProxy Resource Requirements Optional
+        description: The Redis HAProxy resource requirements.
+        path: redis_haproxy_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: RabbitMQ Resource Requirements Optional
+        description: The RabbitMQ resource requirements.
+        path: rabbitmq_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: RabbitMQ replicas Optional
+        description: The RabbitMQ replicas.
+        path: rabbitmq_replicas
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:podCount'
+      - displayName: Catalog API Resource Requirements Optional
+        description: The Catalog API resource requirements.
+        path: catalog_api_resources
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+      - displayName: Catalog API replicas Optional
+        description: The Catalog API replicas.
+        path: catalog_api_replicas
+        x-descriptors:
+        - 'urn:alm:descriptor:com.tectonic.ui:fieldDependency:customResources:true'
+        - 'urn:alm:descriptor:com.tectonic.ui:podCount'
+  description: |-
+    # Introduction Common Core Services Operator
+    Put stuff here
+
+    # Details
+    Various Details
+    ## Prerequisites
+    Various Prerequisites
+    ## Resources Required
+    Various Resources Required
+    ## Installing
+    Various Installation details
+    # Configuration
+    Various Configuration information
+    ### Limitations
+    Various Limitations
+    ### SecurityContextConstraints Requirements
+    All pods will use the restricted SCC, I think.
+  displayName: Common Core Services
+  icon:
+  - base64data: "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAzVJREFUeF7tW9lygzAMLP//zQkdmJoRqo6VZRuH0LcQWcirY2U5XdZ1XX/Y3/ZoWRb+uNnn3vojhi5ZAAp+BTCKpwSiJm+t52u2DWb0UIBUADYhJAoiAPBg2/R76yVArWdUZ9mo9Oz4ToqASAh9uqwYAZ++qYj9lwEwuhBq76sGQCCPCPC7rJWbYWXGgktrQA9Pezol1tDwOUWAVKUp5bT0iqSLe4pTI0KVURv/pYDH49EXRL3lURx3iASa50hK7zsA3EjP6CgIUqdJ+wztfRm76ForJdIAeI2MBhY3UOsa6XMUqBIlUAplIyACgLRpK9rQDUtyVgSc0iwLQCQdWgGAHN7SKcDPAlI+RjYv6UN6dV4rND1auHssptYAdHPWi4sOqWmqXafy+d/xPcwiz2FIcE+EBqNFkHrQOw5raci9bH32Gq6hAxGpQbEAtACw6FF7j9hJjpwIjQZAA4mCDk2EkJRAZKSi6I3SpALK04hWer5piUVO67UIQFpVqigCAMowvKOLrENlL4kA1LgRcg8A7/d7vxeInMWRafEI76FnBcuWhQIgFROJpm4NgFd4ehW7mohpEgG1LKA1MBYN1Wwys8aj0D31awHIGDbT2geAr4+AwgIlLAsdIrO4q0O5SRHkNOixwNWbRtrvCFP96wO+DoDX67UijY3WKSIRwSkTWYPKWLoRqoYuR0tISfM21NBZ5cShKDf21gBwFtA8lUmBWb1vdoK8LkQq68wb5rbBQ9EHgM6/HbwqatQ+oAxJaF9wNQvQYoxQNwLqrQHw+o8dUK0V/poIsO4GvSsoJMQ0mVmKaqgTzGxYa65a6qzR9QCAXI/3CNceOqsiQBuIeMqgHyCxHy20oi7LNmQQStcfLMAnQigAntzs3x81gHImguIIb44ADyqCPQyZrgYgHm3ZCmcB8Lo81GlPBEitsNW90WKJoizJZSKgZSQeIzGJBSjVISmSAQRZi54GI+lxSwDoEd4D9rYAeBs/Ij5yHEaVInKZGoDoR2Uuux2eFgCpwvYwtodO1OunswD9fwGpyiLXSzUv1uYDmgM2eeRHkIgM1XW6GeIAWGeCGWixBfBVANxl8xuAv+uAjFN0gC7hAAAAAElFTkSuQmCC"
+    mediatype: "image/png"
+  install:
+    spec:
+      deployments:
+      - name: ibm-cpd-ccs-operator
+        labels:
+          control-plane: ibm-cpd-ccs-operator
+          app.kubernetes.io/instance: ibm-cpd-ccs-operator
+          app.kubernetes.io/managed-by: ibm-cpd-ccs-operator
+          app.kubernetes.io/name: ibm-cpd-ccs-operator
+          icpdsupport/app: operator
+          icpdsupport/addOnId: ccs
+          icpdsupport/module: ibm-cpd-ccs-operator
+        spec:
+          selector:
+            matchLabels:
+              control-plane: ibm-cpd-ccs-operator
+          replicas: 1
+          template:
+            metadata:
+              annotations:
+                productID: eb9998dcc5d24e3eb5b6fb488f750fe2
+                productMetric: FREE
+                productName: IBM Cloud Pak for Data Common Core Services
+                productVersion: 10.1.0
+                cloudpakName: IBM Cloud Pak for Data
+                cloudpakId: eb9998dcc5d24e3eb5b6fb488f750fe2
+              labels:
+                control-plane: ibm-cpd-ccs-operator
+                app.kubernetes.io/instance: ibm-cpd-ccs-operator
+                app.kubernetes.io/managed-by: ibm-cpd-ccs-operator
+                app.kubernetes.io/name: ibm-cpd-ccs-operator
+                intent: projected
+                icpdsupport/app: operator
+                icpdsupport/addOnId: ccs
+                icpdsupport/module: ibm-cpd-ccs-operator
+            spec:
+              affinity:
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: kubernetes.io/arch
+                        operator: In
+                        values:
+                        - amd64
+                        - ppc64le
+                        - s390x
+              containers:
+                - name: manager
+                  args:
+                    - "--zap-log-level"
+                    - "error"
+                    - "--max-concurrent-reconciles"
+                    - "1"
+                    - "--reconcile-period"
+                    - "0s"
+                  image: icr.io/cpopen/ibm-cpd-ccs-operator@sha256:d4b336150786b32a98e6a6f2af34eece3b315af9c3819d2bf2de07667e15037c
+                  livenessProbe:
+                    httpGet:
+                      path: /healthz
+                      port: 6789
+                    initialDelaySeconds: 15
+                    periodSeconds: 20
+                  readinessProbe:
+                    httpGet:
+                      path: /readyz
+                      port: 6789
+                    initialDelaySeconds: 5
+                    periodSeconds: 10
+                  securityContext:
+                    privileged: false
+                    runAsNonRoot: true
+                    allowPrivilegeEscalation: false
+                    readOnlyRootFilesystem: false
+                    capabilities:
+                      drop:
+                        - ALL
+                  env:
+                    - name: ANSIBLE_CALLBACKS_ENABLED
+                      value: "profile_roles, profile_tasks"
+                    - name: ANSIBLE_STDOUT_CALLBACK
+                      value: yaml
+                    - name: WATCH_NAMESPACE
+                      valueFrom:
+                        configMapKeyRef:
+                          key: namespaces
+                          name: namespace-scope
+                          optional: true
+                    - name: OPERATOR_NAMESPACE
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.namespace
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 256Mi
+                      ephemeral-storage: 1Gi
+                    limits:
+                      cpu: 2
+                      memory: 1536Mi
+                      ephemeral-storage: 1Gi
+              serviceAccount: ibm-cpd-ccs-operator-serviceaccount
+              serviceAccountName: ibm-cpd-ccs-operator-serviceaccount
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - serving.kserve.io
+          resources:
+          - servingruntimes
+          - inferenceservices
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - list
+          - watch
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - ibm.com
+          resources:
+          - paralleljobs
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - kubeflow.org
+          resources:
+          - pytorchjobs
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - zen.cpd.ibm.com
+          resources:
+          - zenextensions/status
+          verbs:
+          - get
+        - apiGroups:
+          - zen.cpd.ibm.com
+          resources:
+          - zenextension
+          - zenextensions
+          verbs:
+          - create
+          - delete
+          - list
+          - watch
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - operator.ibm.com
+          resources:
+          - operandrequests
+          - operandregistries
+          - operandconfigs
+          - operandbindinfos
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - update
+          - watch
+          - delete
+          - use
+        - apiGroups:
+          - ""
+          - batch
+          - extensions
+          - apps
+          - policy
+          - rbac.authorization.k8s.io
+          - autoscaling
+          - route.openshift.io
+          - authorization.openshift.io
+          - networking.k8s.io
+          - metrics.k8s.io
+          - project.openshift.io
+          resources:
+          - pods
+          - pods/log
+          - poddisruptionbudgets
+          - secrets
+          - jobs
+          - configmaps
+          - deployments
+          - deployments/scale
+          - deployments/finalizers
+          - daemonsets
+          - projects
+          - statefulsets
+          - statefulsets/scale
+          - replicasets
+          - services
+          - services/finalizers
+          - persistentvolumeclaims
+          - cronjobs
+          - pods/exec
+          - pods/portforward
+          - serviceaccounts
+          - namespaces
+          - roles
+          - rolebindings
+          - horizontalpodautoscalers
+          - routes
+          - routes/custom-host
+          - ingresses
+          - endpoints
+          - cronjob
+          - networkpolicies
+          - events
+          - jobs/status
+          - pods/status
+          - resourcequotas
+          - resourcequotas/status
+          verbs:
+          - create
+          - get
+          - delete
+          - watch
+          - update
+          - list
+          - patch
+          - deletecollection
+        - apiGroups:
+          - cpd.ibm.com
+          resources:
+          - cpdinstalls
+          - cpdinstalls/spec
+          - cpdinstalls/status
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - runtimes.ibm.com
+          resources:
+          - runtimeassemblies
+          - runtimeassemblies/spec
+          - runtimeassemblies/status
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - build.openshift.io
+          resources:
+          - buildconfigs
+          - buildconfigs/instantiate
+          - buildconfigs/instantiatebinary
+          - buildconfigs/webhooks
+          - buildlogs
+          - builds
+          - builds/clone
+          - builds/details
+          - builds/log
+          verbs:
+          - create
+          - delete
+          - list
+          - watch
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - image.openshift.io
+          resources:
+          - imagestreams
+          - imagestreams/layers
+          - imagestreams/secrets
+          - imagestreams/status
+          - imagestreamimages
+          - imagestreamimports
+          - imagestreammappings
+          - imagestreamtags
+          verbs:
+          - create
+          - delete
+          - list
+          - watch
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          verbs:
+          - get
+        - apiGroups:
+          - ibmcpcs.ibm.com
+          resources:
+          - secretshares
+          - secretshares/spec
+          - secretshares/status
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - replicasets
+          - deployments
+          verbs:
+          - get
+        - apiGroups:
+          - ccs.cpd.ibm.com
+          resources:
+          - ccs
+          - ccs/spec
+          - ccs/status
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - postgresql.k8s.enterprisedb.io
+          resources:
+          - clusters
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - zen.cpd.ibm.com
+          resources:
+          - zenservices
+          - zenservices/spec
+          - zenservices/status
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - certmanager.k8s.io
+          resources:
+          - issuers
+          - issuers/status
+          - issuers/finalizers
+          - certificates
+          - certificates/status
+          - certificates/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - cert-manager.io
+          resources:
+          - issuers
+          - issuers/status
+          - issuers/finalizers
+          - certificates
+          - certificates/status
+          - certificates/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - elasticsearch.opencontent.ibm.com
+          resources:
+          - elasticsearchclusters
+          - elasticsearchclusters/spec
+          - elasticsearchclusters/status
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - delete
+          - get
+          - update
+        serviceAccountName: ibm-cpd-ccs-operator-serviceaccount
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: OwnNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - commonc-core-services
+  - cpd40
+  links:
+  - name: Ccs
+    url: https://ccs.domain
+  maintainers:
+  - email: test@ibm.com
+    name: test
+  maturity: v1
+  minKubeVersion: 1.19.0
+  provider:
+    name: IBM
+  relatedImages:
+  - name: asset-files-api
+    image: cp.icr.io/cp/cpd/asset-files-api@sha256:cd70a6ca2a8fe098716f3f537ceb07d4de9480b7f2541964cd5917cb1aaaff3e
+  - name: catalog-api-aux_master
+    image: cp.icr.io/cp/cpd/catalog-api-aux_master@sha256:38bc0ca96ad60e1047ea3063850b01890767388461b8f8e6641c8651351cd1c1
+  - name: catalog-api-jobs
+    image: cp.icr.io/cp/cpd/catalog-api-jobs@sha256:e537dceb8d0fa2dd0fedf561e22c79d1973eba5c5f526c0c8b43fbbcbdddc38b
+  - name: catalog_master
+    image: cp.icr.io/cp/cpd/catalog_master@sha256:5e7cdef5fe78165e3c13ca109a354e8924a27756f75eb33866296063dc28fc95
+  - name: couchdb3
+    image: cp.icr.io/cp/cpd/couchdb3@sha256:e3cce17129767b2187d59885642a0ff23e6dae899a5694e2527dfc108d674083
+  - name: dap-base-job
+    image: cp.icr.io/cp/cpd/dap-base-job@sha256:c2a70eddff2cc68a34524fd0e38d27a77efc34e45f41847bfdefc56baeaa3f1b
+  - name: dataview-api-service
+    image: cp.icr.io/cp/cpd/dataview-api-service@sha256:3b94e815d419dfdad2350363b6cd04772e76ae2d796455fb029d6f37acdda1ab
+  - name: dc-main
+    image: cp.icr.io/cp/cpd/dc-main@sha256:c0e551ecc93d0beddad02b0f8ef85fe6ef13f4c5865eb6e6b1b28d0309da97cf
+  - name: dsx-requisite
+    image: cp.icr.io/cp/cpd/dsx-requisite@sha256:3a158245672ff020c4150d5aedb75fdb23da6c00a10e6b521865682ceba3e71e
+  - name: environments-api
+    image: cp.icr.io/cp/cpd/environments-api@sha256:ba99ad8df272dc5d38683926aec8024be34d8af879a29a27ea13c6c8e5b35c86
+  - name: environments-init-job
+    image: cp.icr.io/cp/cpd/environments-init-job@sha256:b121a427f65fddcf4d601c73a6bd6a38fc131ac8134eb6b4c69e9df39465ed9e
+  - name: environment-specifications-sync
+    image: cp.icr.io/cp/cpd/environment-specifications-sync@sha256:a1293600ba54690dfd3e2bf0d9cbe52f1a0c5b729e8afa0ebbeacafd27f00972
+  - name: environments-ui
+    image: cp.icr.io/cp/cpd/environments-ui@sha256:8b15aa8f9a9cc6f9d0261537d13af8e8c8dc9da1dca08e5487db960e14c457d8
+  - name: event-logger-api
+    image: cp.icr.io/cp/cpd/event-logger-api@sha256:0b4dd02139c93714acf63a5ada4c8721d0cd8b95d33568f3be790afdfd4df074
+  - name: haproxy
+    image: cp.icr.io/cp/cpd/haproxy@sha256:a74ce5af2558a5ba125c444810ca203dbfb35401eb7f4daa92a4c1b054997862
+  - name: jobs-api
+    image: cp.icr.io/cp/cpd/jobs-api@sha256:6d225244fcf8532e1af05ae8c250dd00a28247f467e4f9821bec0a0e1b2930a1
+  - name: jobs-ui
+    image: cp.icr.io/cp/cpd/jobs-ui@sha256:c88d562dd710adf193fb43289e00e0277ea9e65801892a24ddabd5494e3a5630
+  - name: job-trigger
+    image: cp.icr.io/cp/cpd/job-trigger@sha256:b4747a7f76372b96ecaa56e95662987221ca4d93aa7f9cfc55737350cc66deb3
+  - name: ngp-projects-api
+    image: cp.icr.io/cp/cpd/ngp-projects-api@sha256:a00aeb2e4506c96a3e5daf8ec8a9bff47a99ef65289129f436083fee6b7c7c41
+  - name: opencontent-opensearch-2.18.0
+    image: cp.icr.io/cp/cpd/opencontent-opensearch-2.18.0@sha256:fcbf385ffdac6e052759b6ace52746379174c01fbe1d575dcd7a9fbd8286757f
+  - name: portal-catalog
+    image: cp.icr.io/cp/cpd/portal-catalog@sha256:bbd3fa5bac524775023fb39a906fc2b3a57b544668988f029f05c80defee996f
+  - name: portal-common-api
+    image: cp.icr.io/cp/cpd/portal-common-api@sha256:97cf6f81404bebd9e8780a59dbbc6464ee58e38b66e05867db45510d7efb4582
+  - name: portal-job-manager
+    image: cp.icr.io/cp/cpd/portal-job-manager@sha256:1fc6e289b8bd40ab67596a5b5e447802b49dd98e6938efb709c9382fc5978d69
+  - name: portal-main
+    image: cp.icr.io/cp/cpd/portal-main@sha256:da2aa9117d1d02106dd4809fea4ffab7aa1b80fad0b47855cfb050b5791b6bb2
+  - name: portal-notifications
+    image: cp.icr.io/cp/cpd/portal-notifications@sha256:13d19b943910a8c1fd5da72b58b2cf876180c5275545ee04806eec2f59b85fb5
+  - name: portal-projects
+    image: cp.icr.io/cp/cpd/portal-projects@sha256:b9d129c99459d791bf6011f2b65a3064d85e43c7486359a51e78c9a1a852ede9
+  - name: postgresql:16.4
+    image: cp.icr.io/cp/cpd/postgresql:16.4@sha256:fbc414e5143932b37f7fd7159a0bfc6048c93e03c9414a6db11c5e4eb5b3ea2e
+  - name: rabbitmq
+    image: cp.icr.io/cp/cpd/rabbitmq@sha256:cce3cd55676c080ef9d856565a843fa5b0a0ceb1d7b7116bd62cdc4044b40ce4
+  - name: redis
+    image: cp.icr.io/cp/cpd/redis@sha256:75c90429017aa77d0d908ce9406ab48085e3ecd5b371f2a4216c4bbaa861fa5f
+  - name: runtime-assemblies-operator
+    image: cp.icr.io/cp/cpd/runtime-assemblies-operator@sha256:98196192c8ec70a9e9a7ebf1a49c31bd7ab0c839f938a9b70cfdd1f1342c27fd
+  - name: runtime-manager-api
+    image: cp.icr.io/cp/cpd/runtime-manager-api@sha256:6f383d302f83833a8952c1738a1eb1265392c63c5b83a9942a8f6c1aa16e40cc
+  - name: spaces
+    image: cp.icr.io/cp/cpd/spaces@sha256:33bee47082a8a877e657680dec2c68afd29b3046df57cd8e8b1cfa61998e228a
+  - name: spaces-ui-job
+    image: cp.icr.io/cp/cpd/spaces-ui-job@sha256:f8f1bf63d473e1c0367c9a085368ef786e00fc05a3da2a4585b675a0ee86f50e
+  - name: task-credentials
+    image: cp.icr.io/cp/cpd/task-credentials@sha256:083a42696d4831a5e5611108b6f36acce6bcc01db791e444ee07c5dfb4f6bd88
+  - name: wdp-connect-connection
+    image: cp.icr.io/cp/cpd/wdp-connect-connection@sha256:7e8aefbf4c9ac7851cf637a4159e8c51764e41c21c26c6959ff89d4d867c2fca
+  - name: wdp-connect-connector
+    image: cp.icr.io/cp/cpd/wdp-connect-connector@sha256:a6c44a2a15059d18452da50b8d8d6a9b5f3b25363c8e53cc6be554ec110c6a2f
+  - name: wdp-connect-flight-svc
+    image: cp.icr.io/cp/cpd/wdp-connect-flight-svc@sha256:7b1c32d7d18091791deeeebf653d627299e93df8d83257863853473aa14b31e3
+  - name: wdp-dataview
+    image: cp.icr.io/cp/cpd/wdp-dataview@sha256:267f066fea0f11917824ca72cd7cebe958f52057caee82fe1e32dd14d0075276
+  - name: wkc-init-container-ccs
+    image: cp.icr.io/cp/cpd/wkc-init-container-ccs@sha256:470513ec1b29ed7ba75a699fd8420247975c3816775755c15b6feb34a0953ed0
+  - name: wkc-search
+    image: cp.icr.io/cp/cpd/wkc-search@sha256:8c2f6f4fd2fcf2d65c32a77144992a06139ac2017d57de788260fa7cc731e97a
+  - name: wml-asset-registration
+    image: cp.icr.io/cp/cpd/wml-asset-registration@sha256:27561bdbbb5c6ed7b4c343ee15832ce3934167b362a00ed10ea96e6fbadc5c84
+  - name: wml-main
+    image: cp.icr.io/cp/cpd/wml-main@sha256:6ccff3ffc4175e39257771246c9f26ed5ec226921d1c6a737d28eb2cc7fb2239
+  version: 10.1.0
+  defaultChannel: v10.1
