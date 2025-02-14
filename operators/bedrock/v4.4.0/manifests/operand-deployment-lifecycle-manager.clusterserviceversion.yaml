@@ -129,15 +129,8 @@ metadata:
     categories: Developer Tools, Monitoring, Logging & Tracing, Security
     certified: "false"
     containerImage: icr.io/cpopen/odlm:latest
-    createdAt: "2025-02-14T20:25:06Z"
+    createdAt: "2024-09-28T19:55:35Z"
     description: The Operand Deployment Lifecycle Manager provides a Kubernetes CRD-based API to manage the lifecycle of operands.
-    features.operators.openshift.io/disconnected: "true"
-    features.operators.openshift.io/fips-compliant: "true"
-    features.operators.openshift.io/proxy-aware: "false"
-    features.operators.openshift.io/tls-profiles: "false"
-    features.operators.openshift.io/token-auth-aws: "false"
-    features.operators.openshift.io/token-auth-azure: "false"
-    features.operators.openshift.io/token-auth-gcp: "false"
     nss.operator.ibm.com/managed-operators: ibm-odlm
     olm.skipRange: '>=1.2.0 <4.4.0'
     operators.openshift.io/infrastructure-features: '["disconnected"]'
