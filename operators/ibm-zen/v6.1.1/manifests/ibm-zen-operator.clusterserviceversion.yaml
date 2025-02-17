@@ -20,12 +20,12 @@ metadata:
               "fileStorageClass": "managed-nfs-storage"
           }
         },
-        # {
-        #   "apiVersion":"operator.ibm.com/v1alpha1",
-        #   "kind":"OperandBindInfo",
-        #   "metadata":{
-        #     "name":"ibm-zen-bindinfo"
-        #   },
+        {
+          "apiVersion":"operator.ibm.com/v1alpha1",
+          "kind":"OperandBindInfo",
+          "metadata":{
+            "name":"ibm-zen-bindinfo"
+          },
           "spec":{
             "operand":"ibm-platformui-operator",
             "registry":"common-service",
@@ -42,7 +42,7 @@ metadata:
     olm.skipRange: '>=1.0.3 <6.1.1'
     operators.operatorframework.io/builder: operator-sdk-v1.6.2
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
-    containerImage: icr.io/cpopen/icr.io/cpopen/ibm-zen-operator@'sha256:0277d7b63f4efda9342b2473d38395949df90ac4f12823dae360f6ab43812d3b'
+    containerImage: icr.io/cpopen/icr.io/cpopen/ibm-zen-operator@'sha256:4a10f5c151874a507ee339b2b0bc1f1b570d2bf91ed4477e3f44e3f5fcee4a73'
     features.operators.openshift.io/disconnected: "true"
     features.operators.openshift.io/tls-profiles: "false"
     features.operators.openshift.io/token-auth-aws: "false"
@@ -290,7 +290,7 @@ spec:
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
-                    image: icr.io/cpopen/ibm-zen-operator@sha256:0277d7b63f4efda9342b2473d38395949df90ac4f12823dae360f6ab43812d3b
+                    image: icr.io/cpopen/ibm-zen-operator@sha256:4a10f5c151874a507ee339b2b0bc1f1b570d2bf91ed4477e3f44e3f5fcee4a73
                     name: setup-resources
                     securityContext:
                       privileged: false
@@ -333,7 +333,7 @@ spec:
                         value: ibm-zen-operator
                       - name: ENTITLED_REGISTRY_NAME
                         value: hyc-cloud-private-integration-docker-local.artifactory.swg-devops.com
-                    image: icr.io/cpopen/ibm-zen-operator@sha256:0277d7b63f4efda9342b2473d38395949df90ac4f12823dae360f6ab43812d3b
+                    image: icr.io/cpopen/ibm-zen-operator@sha256:4a10f5c151874a507ee339b2b0bc1f1b570d2bf91ed4477e3f44e3f5fcee4a73
                     name: ibm-zen-operator
                     resources:
                       limits:
@@ -701,7 +701,7 @@ spec:
   version: 6.1.1
   relatedImages:
     - name: ZEN_OPERATOR_IMAGE
-      image: icr.io/cpopen/ibm-zen-operator@sha256:0277d7b63f4efda9342b2473d38395949df90ac4f12823dae360f6ab43812d3b
+      image: icr.io/cpopen/ibm-zen-operator@sha256:4a10f5c151874a507ee339b2b0bc1f1b570d2bf91ed4477e3f44e3f5fcee4a73
     - name: ZEN_ICP4DATA_NGINX_REPO_IMAGE
       image: icr.io/cpopen/cpfs/icp4data-nginx-repo@sha256:1df782d0d923544767696d719bd0ac10802b8e06508a104af5e023a519f32dee
     - name: ZEN_SOPKE_NGINX_IMAGE
