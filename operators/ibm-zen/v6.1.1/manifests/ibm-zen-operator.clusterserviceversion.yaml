@@ -28,7 +28,7 @@ metadata:
           },
           "spec":{
             "operand":"ibm-platformui-operator",
-            "registry":"common-service",
+            "registry":"standalone-zen-registry",
             "description":"Binding information that should be accessible to zen adopters",
             "bindings":{
                 "protected-ca-cert":{
