@@ -19,7 +19,7 @@ metadata:
           "spec": {
               "fileStorageClass": "managed-nfs-storage"
           }
-        },    
+        },
         {
           "apiVersion":"operator.ibm.com/v1alpha1",
           "kind":"OperandBindInfo",
