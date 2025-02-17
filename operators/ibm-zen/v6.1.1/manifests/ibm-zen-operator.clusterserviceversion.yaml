@@ -20,12 +20,12 @@ metadata:
               "fileStorageClass": "managed-nfs-storage"
           }
         },
-        {
-          "apiVersion":"operator.ibm.com/v1alpha1",
-          "kind":"OperandBindInfo",
-          "metadata":{
-            "name":"ibm-zen-bindinfo"
-          },
+        # {
+        #   "apiVersion":"operator.ibm.com/v1alpha1",
+        #   "kind":"OperandBindInfo",
+        #   "metadata":{
+        #     "name":"ibm-zen-bindinfo"
+        #   },
           "spec":{
             "operand":"ibm-platformui-operator",
             "registry":"common-service",
