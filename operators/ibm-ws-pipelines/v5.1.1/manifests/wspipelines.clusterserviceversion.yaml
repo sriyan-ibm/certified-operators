@@ -2,7 +2,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    description: WS Pipelines CSV file
+    description: Orchestration Pipelines
     containerImage: icr.io/cpopen/ibm-cpd-wspipelines-operator@sha256:260b7813d179794ce456d24ed943007cc76ae08b8862228006a70d7a16b9c11c
     olm.skipRange: '>=1.0.0 <10.1.0'
     alm-examples: |-
@@ -29,10 +29,24 @@ metadata:
         }
       ]
     capabilities: Seamless Upgrades
+    categories: "AI/Machine Learning, Application Runtime"
+    createdAt: "2025-02-11"
     operators.operatorframework.io/builder: operator-sdk-v1.4.2
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
     operators.openshift.io/infrastructure-features: '["disconnected"]'
     nss.operator.ibm.com/managed-operators: ibm-cpd-wspipelines
+    operators.openshift.io/valid-subscription: "[\"IBM watsonx.ai\"]"
+    features.operators.openshift.io/disconnected: "true"
+    features.operators.openshift.io/fips-compliant: "true"
+    features.operators.openshift.io/proxy-aware: "true"
+    features.operators.openshift.io/tls-profiles: "false"
+    features.operators.openshift.io/token-auth-aws: "false"
+    features.operators.openshift.io/token-auth-azure: "false"
+    features.operators.openshift.io/token-auth-gcp: "false"
+    features.operators.openshift.io/cnf: "false"
+    features.operators.openshift.io/cni: "false"
+    features.operators.openshift.io/csi: "false"
+    support: IBM
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/os.linux: supported
