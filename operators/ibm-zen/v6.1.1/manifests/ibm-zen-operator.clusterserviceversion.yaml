@@ -8,7 +8,7 @@ metadata:
     operatorframework.io/arch.s390x: supported
     operatorframework.io/os.linux: supported
   annotations:
-    alm-examples: ''
+    alm-examples: '[]'
     capabilities: Seamless Upgrades
     olm.skipRange: '>=1.0.3 <6.1.1'
     operators.operatorframework.io/builder: operator-sdk-v1.6.2
