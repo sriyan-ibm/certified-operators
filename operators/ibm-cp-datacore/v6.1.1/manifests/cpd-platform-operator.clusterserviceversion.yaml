@@ -144,7 +144,7 @@ spec:
                             key: namespaces
                       - name: PLATFORM_OPERATOR_VERSION
                         value: 6.1.1
-                    image: icr.io/cpopen/ibm-cpd-platform-operator@sha256:77507842bffbabc3646d684e3ec3eb5b0732c8ad930f6088e9d7e5703e564cd5
+                    image: icr.io/cpopen/ibm-cpd-platform-operator@sha256:8956e12467826eb1f89e92cb49ea8b684e17ed14eb1f943446019aacd2da3269
                     name: manager
                     resources:
                       limits:
@@ -287,6 +287,6 @@ spec:
   provider:
     name: IBM
   relatedImages:
-    - image: icr.io/cpopen/ibm-cpd-platform-operator@sha256:77507842bffbabc3646d684e3ec3eb5b0732c8ad930f6088e9d7e5703e564cd5
+    - image: icr.io/cpopen/ibm-cpd-platform-operator@sha256:8956e12467826eb1f89e92cb49ea8b684e17ed14eb1f943446019aacd2da3269
       name: CPD_PLATFORM_OPERATOR_IMAGE
   version: 6.1.1
