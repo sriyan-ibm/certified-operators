@@ -87,8 +87,323 @@ spec:
     mediatype: image/png
   install:
     spec:
-      deployments: null
-    strategy: ""
+      deployments:
+      - name: ibm-elasticsearch-operator-ibm-es-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: ibm-es-controller-manager
+          strategy: {}
+          template:
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/default-container: manager
+                productChargedContainers: “All”
+                productID: 3be23cc87d094c5f8bd6d73fe149248c
+                productMetric: FREE
+                productName: Cloud Pak Open
+                productVersion: 1.0.0
+              labels:
+                app.kubernetes.io/instance: ibm-cloudpakopen-elasticsearch-operator
+                app.kubernetes.io/managed-by: ibm-cloudpakopen-elasticsearch-operator
+                app.kubernetes.io/name: ibm-cloudpakopen-elasticsearch-operator
+                control-plane: ibm-es-controller-manager
+                intent: projected
+                name: ibm-cloudpakopen-elasticsearch-operator
+            spec:
+              affinity:
+                nodeAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - preference:
+                      matchExpressions:
+                      - key: kubernetes.io/arch
+                        operator: In
+                        values:
+                        - amd64
+                        - ppc64le
+                        - s390x
+                    weight: 3
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: kubernetes.io/arch
+                        operator: In
+                        values:
+                        - amd64
+                        - ppc64le
+                        - s390x
+              containers:
+              - args:
+                - --enable-leader-election
+                - --leader-election-id=ibm-elasticsearch-operator
+                - --max-concurrent-reconciles
+                - "6"
+                env:
+                - name: ANSIBLE_DEBUG_LOGS
+                  value: "False"
+                - name: ANSIBLE_GATHERING
+                  value: explicit
+                - name: MAX_CONCURRENT_RECONCILES_ELASTICSEACH_ELASTICSEARCH_CLOUDPAKOPEN_IBM_COM
+                  value: "6"
+                - name: MAX_CONCURRENT_RECONCILES_ELASTICSEACHDETAIL_ELASTICSEARCH_CLOUDPAKOPEN_IBM_COM
+                  value: "6"
+                - name: MAX_CONCURRENT_RECONCILES_ELASTICSEACHCLUSTER_ELASTICSEARCH_CLOUDPAKOPEN_IBM_COM
+                  value: "6"
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: namespaces
+                      name: namespace-scope
+                      optional: true
+                image: icr.io/cpopen/opencontent-elasticsearch-operator@sha256:06b0c749115171a6ef1c9ecac5fc10bef69f84b2d9c0526f48e6bf3f6fd8fd67
+                imagePullPolicy: Always
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 6789
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
+                name: manager
+                readinessProbe:
+                  httpGet:
+                    path: /readyz
+                    port: 6789
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                resources:
+                  limits:
+                    cpu: "1"
+                    ephemeral-storage: 2Gi
+                    memory: 6Gi
+                  requests:
+                    cpu: 300m
+                    ephemeral-storage: 10Mi
+                    memory: 500Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                    - ALL
+                  privileged: false
+                  readOnlyRootFilesystem: false
+                  runAsNonRoot: true
+                  seccompProfile:
+                    type: RuntimeDefault
+              serviceAccountName: ibm-elasticsearch-operator-ibm-cpo-elasticsearch-sa
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          - pods
+          - pods/exec
+          - pods/log
+          - services
+          - endpoints
+          - persistentvolumeclaims
+          - events
+          - configmaps
+          - secrets
+          - serviceaccounts
+          - poddisruptionbudgets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - batch
+          resources:
+          - jobs
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - roles
+          - rolebindings
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          - daemonsets
+          - replicasets
+          - statefulsets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - security.openshift.io
+          resourceNames:
+          - restricted
+          resources:
+          - securitycontextconstraints
+          verbs:
+          - use
+        - apiGroups:
+          - policy
+          resources:
+          - poddisruptionbudgets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - networking.k8s.io
+          resources:
+          - networkpolicies
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - elasticsearch.opencontent.ibm.com
+          resources:
+          - elasticsearchclusters
+          - elasticsearchclusters/status
+          - elasticsearchclusters/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - certmanager.k8s.io
+          resources:
+          - certificates
+          - issuers
+          verbs:
+          - create
+          - get
+          - update
+          - delete
+          - patch
+          - list
+          - watch
+        - apiGroups:
+          - cert-manager.io
+          resources:
+          - certificates
+          - issuers
+          verbs:
+          - create
+          - get
+          - update
+          - delete
+          - patch
+          - list
+          - watch
+        - apiGroups:
+          - operator.ibm.com
+          resources:
+          - operandrequests
+          verbs:
+          - create
+          - get
+          - update
+          - delete
+          - patch
+          - list
+          - watch
+        - apiGroups:
+          - autoscaling.k8s.io
+          resources:
+          - verticalpodautoscalers
+          verbs:
+          - create
+          - get
+          - update
+          - delete
+          - patch
+          - list
+          - watch
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - get
+          - update
+          - delete
+          - patch
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - watch
+        serviceAccountName: ibm-elasticsearch-operator-ibm-cpo-elasticsearch-sa
+    strategy: deployment
   installModes:
   - supported: true
     type: OwnNamespace
