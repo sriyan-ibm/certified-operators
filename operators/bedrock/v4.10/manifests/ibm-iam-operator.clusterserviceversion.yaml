@@ -152,25 +152,34 @@ metadata:
     categories: Security
     certified: "false"
     containerImage: icr.io/cpopen/ibm-iam-operator:4.10.0
-    createdAt: "2025-02-06T15:48:19Z"
+    createdAt: "2025-02-19T02:28:19Z"
     description: The IAM operator provides a simple Kubernetes CRD-Based API to manage the lifecycle of IAM services. With this operator, you can simply deploy and upgrade the IAM services
+    features.operators.openshift.io/disconnected: "true"
+    features.operators.openshift.io/fips-compliant: "true"
+    features.operators.openshift.io/proxy-aware: "false"
+    features.operators.openshift.io/tls-profiles: "false"
+    features.operators.openshift.io/token-auth-aws: "false"
+    features.operators.openshift.io/token-auth-azure: "false"
+    features.operators.openshift.io/token-auth-gcp: "false"
     olm.skipRange: <4.10.0
     operators.operatorframework.io/builder: operator-sdk-v1.37.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
     repository: https://github.com/IBM/ibm-iam-operator
     support: IBM
-    features.operators.openshift.io/disconnected: 'true'
-    features.operators.openshift.io/fips-compliant: 'true'
-    features.operators.openshift.io/proxy-aware: 'false'
-    features.operators.openshift.io/tls-profiles: 'false'
-    features.operators.openshift.io/token-auth-aws: 'false'
-    features.operators.openshift.io/token-auth-azure: 'false'
-    features.operators.openshift.io/token-auth-gcp: 'false'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/arch.s390x: supported
     operatorframework.io/os.linux: supported
+    operators.operatorframework.io.bundle.channel.default.v1: v4.10
+    operators.operatorframework.io.bundle.channels.v1: v4.10
+    operators.operatorframework.io.bundle.manifests.v1: manifests/
+    operators.operatorframework.io.bundle.mediatype.v1: registry+v1
+    operators.operatorframework.io.bundle.metadata.v1: metadata/
+    operators.operatorframework.io.bundle.package.v1: ibm-iam-operator
+    operators.operatorframework.io.metrics.builder: operator-sdk-v1.37.0
+    operators.operatorframework.io.metrics.mediatype.v1: metrics+v1
+    operators.operatorframework.io.metrics.project_layout: go.kubebuilder.io/v3
   name: ibm-iam-operator.v4.10.0
   namespace: placeholder
 spec:
@@ -479,6 +488,17 @@ spec:
             - apiGroups:
                 - operator.ibm.com
               resources:
+                - operandbindinfos
+              verbs:
+                - create
+                - get
+                - list
+                - patch
+                - watch
+                - update
+            - apiGroups:
+                - operator.ibm.com
+              resources:
                 - operandrequests
               verbs:
                 - create
@@ -492,6 +512,7 @@ spec:
                 - operator.ibm.com
               resources:
                 - operandrequests/status
+                - operandbindinfos/status
               verbs:
                 - watch
                 - get
