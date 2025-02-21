@@ -34,8 +34,17 @@ metadata:
     categories: Monitoring
     certified: "false"
     containerImage: icr.io/cpopen/ibm-license-service-reporter-operator:4.2.13
-    createdAt: "2024-12-18T14:22:02Z"
+    createdAt: "2025-02-21T11:36:47Z"
+    features.operators.openshift.io/disconnected: "true"
+    features.operators.openshift.io/fips-compliant: "true"
+    features.operators.openshift.io/proxy-aware: "false"
+    features.operators.openshift.io/tls-profiles: "false"
+    features.operators.openshift.io/token-auth-aws: "false"
+    features.operators.openshift.io/token-auth-azure: "false"
+    features.operators.openshift.io/token-auth-gcp: "false"
+    nss.operator.ibm.com/managed-operators: ibm-license-service-operator
     olm.skipRange: '>=1.0.0 <4.2.13'
+    operatorframework.io/suggested-namespace: ibm-ls-reporter
     operators.operatorframework.io/builder: operator-sdk-v1.27.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
   name: ibm-license-service-reporter-operator.v4.2.13
